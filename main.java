@@ -13,19 +13,30 @@ public class main {
         Graphics g = arena.getGraphics();
         ArenaCreation.arenaGrayDraw(g, width, height, cellSize, borderWidth);
 
-        int[][] generationDrawReady = ArenaPopulation.arenaPopulationGeneration(arenaSize);
-        ArenaCreation.generationDrawing(g, generationDrawReady, arenaSize, cellSize, borderWidth);
+        int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(arenaSize);
+        // creates random generation 0
+
+        int[][] generationCurrent = generationZero;
 
         for(int i = 0; i <= 100; i++) {
-            int[][] generationOutput = ArenaPopulation.arenaRules(generationDrawReady);
-            int[][] generationNew = ArenaPopulation.arenaRulesApplied(generationDrawReady, generationOutput);
+            ArenaCreation.generationDrawing(g, generationCurrent, arenaSize, cellSize, borderWidth);
+            // draws generation current
+
             try {
                 Thread.sleep(1000);
             }
             catch(InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
-            ArenaCreation.generationDrawing(g, generationNew, arenaSize, cellSize, borderWidth);
+            // wait
+
+            int[][] generationAdj = ArenaPopulation.arenaRules(generationCurrent);
+            // adjacent rules for generation current
+
+            int[][] generationNew = ArenaPopulation.arenaRulesApplied(generationAdj, generationCurrent);
+            // use generation current and its adjacent to create generation new
+
+            generationCurrent = generationNew;
         }
     }
 }
