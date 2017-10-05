@@ -28,18 +28,22 @@ public class ArenaPopulation {
                     minCol = j;
                 }
                 int maxRow = Math.max(i, i + 1);
-                if(maxRow >= y) {
+                if(maxRow > y) {
                     minRow = i;
                 }
                 int maxCol = Math.max(j, j + 1);
-                if(maxCol >= x) {
+                if(maxCol > x) {
                     maxCol = j;
                 }
 
-                for (int row = minRow; row < maxRow; row++) {
-                    for (int col = minCol; col < maxCol; col++) {
-                        if(generationInput[row][col] == 1) {
-                            generationRecord[i][j] += 1;
+                for (int row = minRow; row <= maxRow; row++) {
+                    for (int col = minCol; col <= maxCol; col++) {
+                        if (row >= 0 && col >= 0 && row < generationInput.length && col < generationInput[0].length) {
+                            if(row != i || col != j) {
+                                if (generationInput[row][col] == 1) {
+                                    generationRecord[i][j] += 1;
+                                }
+                            }
                         }
                     }
                 }
@@ -54,16 +58,16 @@ public class ArenaPopulation {
 
         for(int i = 0; i < x; i++) {
             for(int j = 0; j < y; j++) {
-                if (generationOld[i][j] == 1 && (generationRulesReady[i][j] < 2 || generationRulesReady[i][j] > 3)) {
+                if (generationRulesReady[i][j] == 1 && (generationOld[i][j] < 2 || generationOld[i][j] > 3)) {
                     generationNew[i][j] = 0;
                 }
-                if (generationOld[i][j] == 1 && (generationRulesReady[i][j] == 2 || generationRulesReady[i][j] == 3)) {
+                if (generationRulesReady[i][j] == 1 && (generationOld[i][j] == 2 || generationOld[i][j] == 3)) {
                     generationNew[i][j] = 1;
                 }
-                if (generationOld[i][j] == 0 && (generationRulesReady[i][j] > 3 || generationRulesReady[i][j] < 3)) {
+                if (generationRulesReady[i][j] == 0 && (generationOld[i][j] > 3 || generationOld[i][j] < 3)) {
                     generationNew[i][j] = 0;
                 }
-                if (generationOld[i][j] == 0 && generationRulesReady[i][j] == 3) {
+                if (generationRulesReady[i][j] == 0 && generationOld[i][j] == 3) {
                     generationNew[i][j] = 1;
                 }
             }

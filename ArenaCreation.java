@@ -5,7 +5,7 @@ public class ArenaCreation {
     public static int arenaSizePrompt() {
         Scanner scan = new Scanner(System.in);
         System.out.println("What size of arena would you like?");
-        System.out.println("Size under __ recommended.");
+        System.out.println("Size under 50 recommended. (for now)");
         int arenaSize = scan.nextInt();
         return arenaSize;
     }
