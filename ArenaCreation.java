@@ -2,8 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Scanner;
 public class ArenaCreation extends JPanel {
+    int arenaSize = ArenaCreation.arenaSizePrompt();
     int cellSize = 16;
     int borderWidth = 2;
+    int height = arenaSize * cellSize;
+    int width = arenaSize * cellSize;
     //int height = arenaSize * cellSize;
     //int width = arenaSize * cellSize;
 

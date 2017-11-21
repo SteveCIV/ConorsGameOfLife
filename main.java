@@ -18,10 +18,10 @@ public class main extends JFrame /* implements ActionListener */ {
     public main() {
         gui();
         Graphics g = p.getGraphics();
-        ArenaCreation arena = new ArenaCreation(g);
+        Graphics g2 = p2.getGraphics();
+        ArenaCreation arena = new ArenaCreation(g2);
+        ArenaPopulation gen = new ArenaPopulation();
         p2.add(arena);
-        f.add(p2, BorderLayout.WEST);
-        f.setVisible(true);
         //int arenaSize = ArenaCreation.arenaSizePrompt();
     }
     public void gui() {
@@ -29,12 +29,16 @@ public class main extends JFrame /* implements ActionListener */ {
 
         f = new JFrame("Conor's Game of Life");
         f.setVisible(true);
-        f.setSize(400, 400);
+        f.setSize(1000, 1000);
+        f.setResizable(false);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // sets up Panel
         p = new JPanel();
         p.setBackground(Color.GREEN);
+
+        p2 = new JPanel();
+        p2.setBackground(Color.BLACK);
 
         // creates button
         button1 = new JButton("Action Listener in future");
@@ -42,8 +46,10 @@ public class main extends JFrame /* implements ActionListener */ {
         // adds button to panel
         p.add(button1);
 
-        // adds Panel to Frame
+        // adds Panels to Frame
         f.add(p, BorderLayout.EAST);
+        f.add(p2);
+        f.setVisible(true);
     }
     public static void main(String args[]) {
         new main().setVisible(true);
