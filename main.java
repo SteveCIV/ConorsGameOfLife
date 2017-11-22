@@ -8,7 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 public class main extends JFrame /* implements ActionListener */ {
-
+    public static final int arenaSize = ArenaCreation.arenaSizePrompt();
     // Frame, Panel, Button
     private JFrame f;
     private JPanel p;
@@ -20,13 +20,16 @@ public class main extends JFrame /* implements ActionListener */ {
         Graphics g = p.getGraphics();
         Graphics g2 = p2.getGraphics();
         ArenaCreation arena = new ArenaCreation(g2);
-        ArenaPopulation gen = new ArenaPopulation();
+        //ArenaPopulation gen = new ArenaPopulation();
         p2.add(arena);
-        //int arenaSize = ArenaCreation.arenaSizePrompt();
+
+        //arenaSize = ArenaCreation.arenaSizePrompt();
+        int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(arenaSize);
+        int[][] generationCurrent = generationZero;
     }
     public void gui() {
-        // sets up Frame
 
+        // sets up Frame
         f = new JFrame("Conor's Game of Life");
         f.setVisible(true);
         f.setSize(1000, 1000);

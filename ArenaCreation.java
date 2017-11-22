@@ -2,18 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Scanner;
 public class ArenaCreation extends JPanel {
-    int arenaSize = ArenaCreation.arenaSizePrompt();
+    //int arenaSize;
     int cellSize = 16;
     int borderWidth = 2;
-    int height = arenaSize * cellSize;
-    int width = arenaSize * cellSize;
+    int height;
+    int width;
+    //int arenaSize;
     //int height = arenaSize * cellSize;
     //int width = arenaSize * cellSize;
 
+
     public ArenaCreation(Graphics g) {
-        int arenaSize = arenaSizePrompt();
-        int height = arenaSize * cellSize;
-        int width = arenaSize * cellSize;
+        height = main.arenaSize * cellSize;
+        width = main.arenaSize * cellSize;
         arenaGrayDraw(g, width, height, cellSize, borderWidth);
     }
 
@@ -21,7 +22,7 @@ public class ArenaCreation extends JPanel {
         // this will be removed and put in the side bar
         Scanner scan = new Scanner(System.in);
         System.out.println("What size of arena would you like?");
-        System.out.println("Size under 50 recommended. (for now)");
+        System.out.println("Size under ??? recommended. Since I have no idea how to code");
         int arenaSize = scan.nextInt();
         return arenaSize;
     }
