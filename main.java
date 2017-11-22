@@ -8,7 +8,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 public class main extends JFrame /* implements ActionListener */ {
-    public static final int arenaSize = ArenaCreation.arenaSizePrompt();
+    public static final int ARENASIZE = ArenaCreation.arenaSizePrompt();
+    public static final int CELLSIZE = 16;
+    public static final int BORDERWITH = 2;
     // Frame, Panel, Button
     private JFrame f;
     private JPanel p;
@@ -24,8 +26,26 @@ public class main extends JFrame /* implements ActionListener */ {
         p2.add(arena);
 
         //arenaSize = ArenaCreation.arenaSizePrompt();
-        int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(arenaSize);
+        int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(ARENASIZE);
         int[][] generationCurrent = generationZero;
+
+        while(true) {
+            arena.generationDrawing(g, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
+            try {
+                Thread.sleep(1);
+            }
+            catch(InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+
+            int[][] generationAdj = ArenaPopulation.arenaRules(generationCurrent);
+            int[][] generationNew = ArenaPopulation.arenaRulesApplied(generationAdj, generationCurrent);
+            for(int w = 0; w < generationNew.length; w++) {
+                for (int h = 0; h < generationNew[w].length; h++) {
+                    generationCurrent[w][h] = generationNew[w][h];
+                }
+            }
+        }
     }
     public void gui() {
 

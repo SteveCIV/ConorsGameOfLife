@@ -3,19 +3,15 @@ import java.awt.*;
 import java.util.Scanner;
 public class ArenaCreation extends JPanel {
     //int arenaSize;
-    int cellSize = 16;
-    int borderWidth = 2;
+    //int cellSize = 16;
+    //int borderWidth = 2;
     int height;
     int width;
-    //int arenaSize;
-    //int height = arenaSize * cellSize;
-    //int width = arenaSize * cellSize;
-
 
     public ArenaCreation(Graphics g) {
-        height = main.arenaSize * cellSize;
-        width = main.arenaSize * cellSize;
-        arenaGrayDraw(g, width, height, cellSize, borderWidth);
+        height = main.ARENASIZE * main.CELLSIZE;
+        width = main.ARENASIZE * main.CELLSIZE;
+        arenaGrayDraw(g, width, height, main.CELLSIZE, main.BORDERWITH);
     }
 
     public static int arenaSizePrompt() {
