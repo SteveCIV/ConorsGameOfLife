@@ -8,10 +8,10 @@ public class ArenaCreation extends JPanel {
     int height;
     int width;
 
-    public ArenaCreation(Graphics g) {
+    public ArenaCreation(Graphics g2) {
         height = main.ARENASIZE * main.CELLSIZE;
         width = main.ARENASIZE * main.CELLSIZE;
-        arenaGrayDraw(g, width, height, main.CELLSIZE, main.BORDERWITH);
+        //arenaGrayDraw(g2, width, height, main.CELLSIZE, main.BORDERWITH);
     }
 
     public static int arenaSizePrompt() {
@@ -22,10 +22,10 @@ public class ArenaCreation extends JPanel {
         int arenaSize = scan.nextInt();
         return arenaSize;
     }
-    public void arenaGrayDraw(Graphics g, int width, int height, int cellSize, int borderWidth) {
-        super.paintComponent(g);
+    public static void arenaGrayDraw(Graphics g, int width, int height, int cellSize, int borderWidth) {
+        //super.paintComponent(g);
         g.setColor(Color.GRAY);
-        for(int i = 0; i <= width; i = i+cellSize) {
+        for(int i = 0; i < width; i = i+cellSize) {
             //horizontal grey lines
             g.fillRect(0, 0 + (i+cellSize), width, borderWidth);
             g.fillRect(0, -2 + (i+cellSize), width, borderWidth);

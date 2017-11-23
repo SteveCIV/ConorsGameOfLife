@@ -11,6 +11,8 @@ public class main extends JFrame /* implement ActionListener later*/ {
     public static final int ARENASIZE = ArenaCreation.arenaSizePrompt();
     public static final int CELLSIZE = 16;
     public static final int BORDERWITH = 2;
+    int width = ARENASIZE * CELLSIZE;
+    int height = ARENASIZE * CELLSIZE;
     // Frame, Panel, Button
     private JFrame f;
     private JPanel p;
@@ -27,6 +29,7 @@ public class main extends JFrame /* implement ActionListener later*/ {
         int[][] generationCurrent = generationZero;
 
         while(true) {
+            ArenaCreation.arenaGrayDraw(g2, width, height, CELLSIZE, BORDERWITH);
             arena.generationDrawing(g2, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
             try {
                 Thread.sleep(100);
