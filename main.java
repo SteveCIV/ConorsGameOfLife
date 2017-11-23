@@ -45,12 +45,13 @@ public class main extends JFrame /* implement ActionListener later*/ {
                     generationCurrent[w][h] = generationNew[w][h];
                 }
             }
-            // I don't know if this should go here
             p2.add(arena);
         }
     }
-    public void gui() {
+    public static void generationLoop() {
 
+    }
+    public void gui() {
         // sets up Frame
         f = new JFrame("Conor's Game of Life");
         f.setVisible(true);
@@ -61,15 +62,12 @@ public class main extends JFrame /* implement ActionListener later*/ {
         // sets up Panel
         p = new JPanel();
         p.setBackground(Color.GREEN);
-
         p2 = new JPanel();
         p2.setBackground(Color.BLACK);
 
-        // creates button
-        button1 = new JButton("Action Listener in future");
-
         // adds button to panel
-        p.add(button1);
+        p.add(GUI.resetArenaButton());
+        p.add(GUI.closeButton());
 
         // adds Panels to Frame
         f.add(p, BorderLayout.EAST);
