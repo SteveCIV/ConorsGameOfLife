@@ -7,7 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Graphics;
-public class main extends JFrame /* implements ActionListener */ {
+public class main extends JFrame /* implement ActionListener later*/ {
     public static final int ARENASIZE = ArenaCreation.arenaSizePrompt();
     public static final int CELLSIZE = 16;
     public static final int BORDERWITH = 2;
@@ -23,16 +23,13 @@ public class main extends JFrame /* implements ActionListener */ {
         Graphics g2 = p2.getGraphics();
         ArenaCreation arena = new ArenaCreation(g2);
         //ArenaPopulation gen = new ArenaPopulation();
-        p2.add(arena);
-
-        //arenaSize = ArenaCreation.arenaSizePrompt();
         int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(ARENASIZE);
         int[][] generationCurrent = generationZero;
 
         while(true) {
-            arena.generationDrawing(g, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
+            arena.generationDrawing(g2, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
             try {
-                Thread.sleep(1);
+                Thread.sleep(100);
             }
             catch(InterruptedException ex) {
                 Thread.currentThread().interrupt();
@@ -45,6 +42,8 @@ public class main extends JFrame /* implements ActionListener */ {
                     generationCurrent[w][h] = generationNew[w][h];
                 }
             }
+            // I don't know if this should go here
+            p2.add(arena);
         }
     }
     public void gui() {
@@ -78,44 +77,3 @@ public class main extends JFrame /* implements ActionListener */ {
         new main().setVisible(true);
     }
 }
-
-/**
-int arenaSize = ArenaCreation.arenaSizePrompt();
-// these might be changed to allow better resizing
-int cellSize = 16;
-int borderWidth = 2;
-int height = arenaSize * cellSize;
-int width = arenaSize * cellSize;
-int dalay = 800;
-
-// opens drawing panel
-DrawingPanel arena = new DrawingPanel(width + 30, height);
-arena.setBackground(Color.WHITE);
-Graphics g = arena.getGraphics();
-ArenaCreation.arenaGrayDraw(g, width, height, cellSize, borderWidth);
-// sets up side bar
-GUI.sideBar(g, width, height);
-// first generation being created and put into loop of generations
-int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(arenaSize);
-int[][] generationCurrent = generationZero;
-
-// loop from generation to generation
-while (true) {
-    ArenaCreation.generationDrawing(g, generationCurrent, arenaSize, cellSize, borderWidth);
-    // waits
-    try {
-        Thread.sleep(dalay);
-    } catch (InterruptedException ex) {
-        Thread.currentThread().interrupt();
-    }
-    // applies rules to create the next generation
-    int[][] generationAdj = ArenaPopulation.arenaRules(generationCurrent);
-    int[][] generationNew = ArenaPopulation.arenaRulesApplied(generationAdj, generationCurrent);
-    // sets generation that will be printed as the new generation
-    for (int w = 0; w < generationNew.length; w++) {
-        for (int h = 0; h < generationNew[w].length; h++) {
-            generationCurrent[w][h] = generationNew[w][h];
-        }
-    }
-}
- **/

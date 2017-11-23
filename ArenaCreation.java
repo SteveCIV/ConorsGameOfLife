@@ -18,7 +18,7 @@ public class ArenaCreation extends JPanel {
         // this will be removed and put in the side bar
         Scanner scan = new Scanner(System.in);
         System.out.println("What size of arena would you like?");
-        System.out.println("Size under ??? recommended. Since I have no idea how to code");
+        System.out.println("Size under 51 recommended. Since I have no idea how to code");
         int arenaSize = scan.nextInt();
         return arenaSize;
     }
