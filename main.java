@@ -7,17 +7,17 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Graphics;
-public class main extends JFrame /* implement ActionListener later*/ {
+public class main extends JFrame {
     public static final int ARENASIZE = ArenaCreation.arenaSizePrompt();
     public static final int CELLSIZE = 16;
     public static final int BORDERWITH = 2;
+    // width and height should not be here
     int width = ARENASIZE * CELLSIZE;
     int height = ARENASIZE * CELLSIZE;
     // Frame, Panel, Button
     private JFrame f;
     private JPanel p;
     private JPanel p2;
-    private JButton button1;
 
     public main() {
         gui();
@@ -27,7 +27,9 @@ public class main extends JFrame /* implement ActionListener later*/ {
         //ArenaPopulation gen = new ArenaPopulation();
         int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(ARENASIZE);
         int[][] generationCurrent = generationZero;
-
+        generationLoop(g2, p2, width, height, generationCurrent, arena);
+    }
+    public static void generationLoop(Graphics g2, JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
         while(true) {
             ArenaCreation.arenaGrayDraw(g2, width, height, CELLSIZE, BORDERWITH);
             arena.generationDrawing(g2, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
@@ -46,10 +48,11 @@ public class main extends JFrame /* implement ActionListener later*/ {
                 }
             }
             p2.add(arena);
+            if(GUI.breakLoop()) {
+                //GUI.resetArenaButton();
+                break;
+            }
         }
-    }
-    public static void generationLoop() {
-
     }
     public void gui() {
         // sets up Frame

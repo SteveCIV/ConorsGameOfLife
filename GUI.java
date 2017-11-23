@@ -1,13 +1,8 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUI {
-    public static void sideBar(Graphics g, int arenaWidth, int arenaHeight) {
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(arenaWidth, 0, 30 , arenaHeight);
-    }
     public static JButton closeButton() {
         JButton button = new JButton("Exit");
         button.addActionListener(new ActionListener() {
@@ -23,9 +18,16 @@ public class GUI {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
+                boolean breakMeDaddy = true;
+                breakLoop();
+                ArenaPopulation.arenaPopulationGeneration(main.ARENASIZE);
             }
         });
         return button;
+    }
+    public static boolean breakLoop() {
+        resetArenaButton();
+        boolean breaker = false;
+        return breaker;
     }
 }
