@@ -14,10 +14,14 @@ public class main extends JFrame {
     // width and height should not be here
     int width = ARENASIZE * CELLSIZE;
     int height = ARENASIZE * CELLSIZE;
+    boolean loopBreaker = true;
+    Color BLUE_GRAY = new Color(40, 80, 160);
     // Frame, Panel, Button
     private JFrame f;
     private JPanel p;
     private JPanel p2;
+    public JButton buttonExit = new JButton("Exit");
+    public JButton buttonReset = new JButton("Reset Arena");
 
     public main() {
         gui();
@@ -29,8 +33,8 @@ public class main extends JFrame {
         int[][] generationCurrent = generationZero;
         generationLoop(g2, p2, width, height, generationCurrent, arena);
     }
-    public static void generationLoop(Graphics g2, JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
-        while(true) {
+    public void generationLoop(Graphics g2, JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
+        while(loopBreaker) {
             ArenaCreation.arenaGrayDraw(g2, width, height, CELLSIZE, BORDERWITH);
             arena.generationDrawing(g2, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
             try {
@@ -48,10 +52,6 @@ public class main extends JFrame {
                 }
             }
             p2.add(arena);
-            if(GUI.breakLoop()) {
-                //GUI.resetArenaButton();
-                break;
-            }
         }
     }
     public void gui() {
@@ -64,13 +64,15 @@ public class main extends JFrame {
 
         // sets up Panel
         p = new JPanel();
-        p.setBackground(Color.GREEN);
+        p.setBackground(BLUE_GRAY);
         p2 = new JPanel();
         p2.setBackground(Color.BLACK);
 
         // adds button to panel
-        p.add(GUI.resetArenaButton());
-        p.add(GUI.closeButton());
+        //GUI sideBar = new GUI(buttonExit, buttonReset, loopBreaker);
+        p.add(buttonExit);
+        p.add(buttonReset, loopBreaker);
+        //p.add(GUI.closeButton());
 
         // adds Panels to Frame
         f.add(p, BorderLayout.EAST);

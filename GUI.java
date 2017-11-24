@@ -1,33 +1,37 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUI {
-    public static JButton closeButton() {
-        JButton button = new JButton("Exit");
-        button.addActionListener(new ActionListener() {
+
+    public GUI(JButton exit, JButton reset, boolean breaker) {
+        closeButton(exit);
+        resetArenaButton(reset, breaker);
+        //resetArena();
+    }
+
+    public void closeButton(JButton b) {
+        //JButton button = new JButton("Exit");
+        b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 System.exit(0);
             }
         });
-        return button;
+        //return b;
     }
-    public static JButton resetArenaButton() {
-        JButton button = new JButton("Reset Arena");
-        button.addActionListener(new ActionListener() {
+    public void resetArenaButton(JButton b, boolean breaker) {
+        b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                boolean breakMeDaddy = true;
-                breakLoop();
+                resetArena(breaker);
                 ArenaPopulation.arenaPopulationGeneration(main.ARENASIZE);
             }
         });
-        return button;
     }
-    public static boolean breakLoop() {
-        resetArenaButton();
-        boolean breaker = false;
+    public static boolean resetArena(boolean breaker) {
+        breaker = false;
         return breaker;
     }
 }
