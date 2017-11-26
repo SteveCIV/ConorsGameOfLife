@@ -7,6 +7,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.util.Arrays;
+
 public class main extends JFrame {
     public static final int ARENASIZE = ArenaCreation.arenaSizePrompt();
     public static final int CELLSIZE = 16;
@@ -20,8 +22,8 @@ public class main extends JFrame {
     private JFrame f;
     private JPanel p;
     private JPanel p2;
-    public JButton buttonExit = new JButton("Exit");
-    public JButton buttonReset = new JButton("Reset Arena");
+    public JButton exitB = new JButton("Exit");
+    public JButton resetB = new JButton("Reset Arena");
 
     public main() {
         gui();
@@ -32,13 +34,14 @@ public class main extends JFrame {
         int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(ARENASIZE);
         int[][] generationCurrent = generationZero;
         generationLoop(g2, p2, width, height, generationCurrent, arena);
+
     }
     public void generationLoop(Graphics g2, JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
         while(loopBreaker) {
             ArenaCreation.arenaGrayDraw(g2, width, height, CELLSIZE, BORDERWITH);
             arena.generationDrawing(g2, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
             try {
-                Thread.sleep(100);
+                Thread.sleep(300);
             }
             catch(InterruptedException ex) {
                 Thread.currentThread().interrupt();
@@ -52,6 +55,31 @@ public class main extends JFrame {
                 }
             }
             p2.add(arena);
+        }
+    }
+    public class buttons extends JButton {
+        public buttons(JButton resetB, JButton exitB) {
+            resetArenaButton(resetB);
+            closeButton(exitB);
+        }
+        public void resetArenaButton(JButton b) {
+            b.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    System.out.println("does this even happen?");
+                    // why does does the program close even when this is commented out?
+                    loopBreaker = false;
+                    //ArenaPopulation.arenaPopulationGeneration(main.ARENASIZE);
+                }
+            });
+        }
+        public void closeButton(JButton b) {
+            b.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    System.exit(0);
+                }
+            });
         }
     }
     public void gui() {
@@ -69,10 +97,9 @@ public class main extends JFrame {
         p2.setBackground(Color.BLACK);
 
         // adds button to panel
-        //GUI sideBar = new GUI(buttonExit, buttonReset, loopBreaker);
-        p.add(buttonExit);
-        p.add(buttonReset, loopBreaker);
-        //p.add(GUI.closeButton());
+        buttons b = new buttons(resetB, exitB);
+        p.add(exitB);
+        p.add(resetB);
 
         // adds Panels to Frame
         f.add(p, BorderLayout.EAST);
