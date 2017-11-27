@@ -8,7 +8,7 @@ public class ArenaCreation extends JPanel {
     int height;
     int width;
 
-    public ArenaCreation(Graphics g2) {
+    public ArenaCreation() {
         height = main.ARENASIZE * main.CELLSIZE;
         width = main.ARENASIZE * main.CELLSIZE;
         //arenaGrayDraw(g2, width, height, main.CELLSIZE, main.BORDERWITH);

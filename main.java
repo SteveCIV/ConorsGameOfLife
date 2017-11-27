@@ -18,7 +18,7 @@ public class main extends JFrame {
     int height = ARENASIZE * CELLSIZE;
     boolean loopBreaker = true;
     Color BLUE_GRAY = new Color(40, 80, 160);
-    // Frame, Panel, Button
+    // Frame, Panel, Graphics, Button
     private JFrame f;
     private JPanel p;
     private JPanel p2;
@@ -29,14 +29,23 @@ public class main extends JFrame {
         gui();
         Graphics g = p.getGraphics();
         Graphics g2 = p2.getGraphics();
-        ArenaCreation arena = new ArenaCreation(g2);
-        //ArenaPopulation gen = new ArenaPopulation();
+
+        //ArenaCreation arena = new ArenaCreation(g2);
+        ArenaCreation arena = createArena();
+        startLoop(arena);
+        //generationLoop(g2, p2, width, height, generationCurrent, arena);
+    }
+    public ArenaCreation createArena() {
+        ArenaCreation newArena = new ArenaCreation();
+        return newArena;
+    }
+    public void startLoop(ArenaCreation arena) {
         int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(ARENASIZE);
         int[][] generationCurrent = generationZero;
+        loopBreaker = true;
         generationLoop(g2, p2, width, height, generationCurrent, arena);
-
     }
-    public void generationLoop(Graphics g2, JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
+    public void generationLoop(JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
         while(loopBreaker) {
             ArenaCreation.arenaGrayDraw(g2, width, height, CELLSIZE, BORDERWITH);
             arena.generationDrawing(g2, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
@@ -66,10 +75,9 @@ public class main extends JFrame {
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    System.out.println("does this even happen?");
-                    // why does does the program close even when this is commented out?
                     loopBreaker = false;
-                    //ArenaPopulation.arenaPopulationGeneration(main.ARENASIZE);
+                    //ArenaCreation arena = createArena();
+                    //startLoop();
                 }
             });
         }
