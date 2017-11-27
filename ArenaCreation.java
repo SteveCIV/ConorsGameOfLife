@@ -9,8 +9,9 @@ public class ArenaCreation {
         int arenaSize = scan.nextInt();
         return arenaSize;
     }
-    public static void arenaGrayDraw(Graphics g, int width, int height, int cellSize, int borderWidth) {
-        g.setColor(Color.GRAY);
+    public static void arenaGrayDraw(Graphics g, int width, int height, int cellSize, int borderWidth, int red, int green, int blue) {
+        Color coolColor = new Color(red, green, blue);
+        g.setColor(coolColor);
         for(int i = 0; i <= width; i = i+cellSize) {
             //horizontal
             g.fillRect(0, 0 + (i+cellSize), width, borderWidth);
@@ -23,15 +24,17 @@ public class ArenaCreation {
         g.fillRect(0,0,width, borderWidth);
         g.fillRect(0,0,borderWidth, height);
     }
-    public static void generationDrawing(Graphics g, int[][] generationDrawReady, int arenaSize, int cellSize, int borderWidth) {
+    public static void generationDrawing(Graphics g, int[][] generationDrawReady, int arenaSize, int cellSize, int borderWidth, int red1, int green1, int blue1, int red2, int green2, int blue2) {
         for(int i = 0; i < arenaSize; i++) {
             for(int j = 0; j < arenaSize; j++) {
                 if(generationDrawReady[i][j] == 1) {
-                    g.setColor(Color.BLACK);
+                    Color colorOne = new Color(red1, green1, blue1);
+                    g.setColor(colorOne);
                     g.fillRect((cellSize * i) + borderWidth, (cellSize * j) + borderWidth, cellSize - (2 * borderWidth), cellSize - (2 * borderWidth));
                 }
                 if(generationDrawReady[i][j] == 0) {
-                    g.setColor(Color.WHITE);
+                    Color colorTwo = new Color(red2, green2, blue2);
+                    g.setColor(colorTwo);
                     g.fillRect((cellSize * i) + borderWidth, (cellSize * j) + borderWidth, cellSize - (2 * borderWidth), cellSize - (2 * borderWidth));
                 }
             }
