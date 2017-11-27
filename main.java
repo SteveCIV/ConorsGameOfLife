@@ -1,15 +1,9 @@
-import com.sun.corba.se.impl.orbutil.graph.Graph;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import java.util.Arrays;
 
 public class main extends JFrame {
     public static final int ARENASIZE = ArenaCreation.arenaSizePrompt();
@@ -19,23 +13,21 @@ public class main extends JFrame {
     int width = ARENASIZE * CELLSIZE;
     int height = ARENASIZE * CELLSIZE;
     boolean loopBreaker = true;
-    Color BLUE_GRAY = new Color(40, 80, 160);
+    private Color BLUE_GRAY = new Color(40, 80, 160);
     // Frame, Panel, Graphics, Button
     private JFrame f;
     private JPanel p;
     private JPanel p2;
-    public JButton exitB = new JButton("Exit");
-    public JButton resetB = new JButton("Reset Arena");
+    private JButton exitB = new JButton("Exit");
+    private JButton resetB = new JButton("Reset Arena");
 
     public main() {
         gui();
         Graphics g = p.getGraphics();
         Graphics g2 = p2.getGraphics();
 
-        //ArenaCreation arena = new ArenaCreation(g2);
         ArenaCreation arena = createArena();
         startLoop(arena, g2);
-        //generationLoop(g2, p2, width, height, generationCurrent, arena);
     }
     public ArenaCreation createArena() {
         ArenaCreation newArena = new ArenaCreation();
@@ -47,12 +39,16 @@ public class main extends JFrame {
         loopBreaker = true;
         generationLoop(g2, p2, width, height, generationCurrent, arena);
     }
+    // when resetArena is clicked a new generation is created and printed properly
+    // BUT the previous generation is still printed and run
+    // this is because generationLoop is still testing true with loopBreaker for both loops
+    // how do I get the previous loop to not be run even when it would be loopBreaker would be true
     public void generationLoop(Graphics g2, JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
         while(loopBreaker) {
             ArenaCreation.arenaGrayDraw(g2, width, height, CELLSIZE, BORDERWITH);
             arena.generationDrawing(g2, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
             try {
-                Thread.sleep(300);
+                Thread.sleep(500);
             }
             catch(InterruptedException ex) {
                 Thread.currentThread().interrupt();
@@ -60,6 +56,7 @@ public class main extends JFrame {
 
             int[][] generationAdj = ArenaPopulation.arenaRules(generationCurrent);
             int[][] generationNew = ArenaPopulation.arenaRulesApplied(generationAdj, generationCurrent);
+            // this is a manual arrayCopy replace next 5 lines
             for(int w = 0; w < generationNew.length; w++) {
                 for (int h = 0; h < generationNew[w].length; h++) {
                     generationCurrent[w][h] = generationNew[w][h];
@@ -73,18 +70,18 @@ public class main extends JFrame {
             resetArenaButton(resetB);
             closeButton(exitB);
         }
-        public void resetArenaButton(JButton b) {
+        private void resetArenaButton(JButton b) {
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     loopBreaker = false;
                     ArenaCreation arena = createArena();
-                    Graphics g2 = p2.getGraphics();
-                    startLoop(arena, g2);
+                    Graphics newG2 = p2.getGraphics();
+                    startLoop(arena, newG2);
                 }
             });
         }
-        public void closeButton(JButton b) {
+        private void closeButton(JButton b) {
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
