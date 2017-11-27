@@ -1,3 +1,5 @@
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,20 +34,20 @@ public class main extends JFrame {
 
         //ArenaCreation arena = new ArenaCreation(g2);
         ArenaCreation arena = createArena();
-        startLoop(arena);
+        startLoop(arena, g2);
         //generationLoop(g2, p2, width, height, generationCurrent, arena);
     }
     public ArenaCreation createArena() {
         ArenaCreation newArena = new ArenaCreation();
         return newArena;
     }
-    public void startLoop(ArenaCreation arena) {
+    public void startLoop(ArenaCreation arena, Graphics g2) {
         int[][] generationZero = ArenaPopulation.arenaPopulationGeneration(ARENASIZE);
         int[][] generationCurrent = generationZero;
         loopBreaker = true;
         generationLoop(g2, p2, width, height, generationCurrent, arena);
     }
-    public void generationLoop(JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
+    public void generationLoop(Graphics g2, JPanel p2, int width, int height, int[][] generationCurrent, ArenaCreation arena) {
         while(loopBreaker) {
             ArenaCreation.arenaGrayDraw(g2, width, height, CELLSIZE, BORDERWITH);
             arena.generationDrawing(g2, generationCurrent, ARENASIZE, CELLSIZE, BORDERWITH);
@@ -76,8 +78,9 @@ public class main extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     loopBreaker = false;
-                    //ArenaCreation arena = createArena();
-                    //startLoop();
+                    ArenaCreation arena = createArena();
+                    Graphics g2 = p2.getGraphics();
+                    startLoop(arena, g2);
                 }
             });
         }
